@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage --no-cache"
+    "test": "jest --collectCoverage",
+    "test:coverage": "jest --watchAll --verbose --collectCoverage",
+    "test:coveralls": "jest --collectCoverage && coveralls < coverage/lcov.info"
   },
   "keywords": [],
-  "author": "",
+  "author": "Faizan & Nghi",
   "license": "ISC",
   "devDependencies": {
     "@babel/preset-env": "^7.26.0",

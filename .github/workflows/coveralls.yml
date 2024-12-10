@@ -3,8 +3,7 @@ on: ["push", "pull_request"]
 name: Test Coveralls
 
 jobs:
-  build:
-    name: Build
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -14,12 +13,25 @@ jobs:
         with:
           node-version: 16.x
 
-      - name: npm install and run tests with coverage
+      - name: Install dependencies and run tests with coverage
         run: |
           npm install
           npm run test
 
-      - name: Coveralls
+      - name: Submit coverage to Coveralls
+        if: success() || failure()
         uses: coverallsapp/github-action@v2
-        env:
+        with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel: true
+
+  finish:
+    needs: test
+    if: success() || failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Finalize Coveralls Parallel
+        uses: coverallsapp/github-action@mv2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
