@@ -1,6 +1,6 @@
 import add from "../utils/add.js";
 
-describe("add.js Unit Tests with Test Case IDs", () => {
+describe("add.js Unit Tests", () => {
   // TC-1: Adds two positive numbers
   it("TC-1: should add two positive numbers", () => {
     const result = add(6, 4);
@@ -42,8 +42,6 @@ describe("add.js Unit Tests with Test Case IDs", () => {
     const result = add(1e15, 1e15);
     expect(result).toBe(2e15);
   });
-
-  // Additional Tests
 
   // TC-8: Handles null as one input
   it("TC-8: should handle null as one input", () => {
